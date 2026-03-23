@@ -1,9 +1,9 @@
 FROM runpod/pytorch:2.1.0-py3.10-cuda11.8.0-runtime
 
-RUN pip install runpod transformers autoawq huggingface_hub
+RUN pip install runpod transformers autoawq huggingface_hub fastapi uvicorn
 
 ARG HF_TOKEN
-ENV HF_TOKEN=${HF_TOKEN}   # ← 先把 ARG 导出成 ENV，Python 才能读到
+ENV HF_TOKEN=${HF_TOKEN}
 
 RUN python -c "
 import os
