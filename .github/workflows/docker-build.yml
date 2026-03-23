@@ -30,6 +30,6 @@ jobs:
           tags: seaseeker/translategemma-serverless:latest
           platforms: linux/amd64
           build-args: |
-            HF_TOKEN=${{ secrets.HF_TOKEN }}   # ← 关键，传给 Dockerfile 的 ARG
+            HF_TOKEN=${{ secrets.HF_TOKEN }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
