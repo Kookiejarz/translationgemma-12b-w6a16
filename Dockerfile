@@ -1,9 +1,19 @@
-FROM pytorch/pytorch:2.2.1-cuda12.1-cudnn8-runtime
+FROM runpod/pytorch:2.1.0-py3.10-cuda11.8.0-runtime
 
-WORKDIR /
-RUN pip install runpod transformers accelerate safetensors sentencepiece
+RUN pip install runpod transformers autoawq huggingface_hub
 
-# 注意：这里的文件名要和你实际写的 Python 脚本名一致
-COPY runpod_ai.py / 
+ARG HF_TOKEN
+ENV HF_TOKEN=${HF_TOKEN}   # ← 先把 ARG 导出成 ENV，Python 才能读到
 
-CMD ["python", "-u", "/runpod_ai.py"]
+RUN python -c "
+import os
+from huggingface_hub import snapshot_download
+snapshot_download(
+    repo_id='Kennethhhh/translationgemma-12b-w6a16',
+    token=os.environ['HF_TOKEN'],
+    local_dir='/model'
+)
+"
+
+COPY runpod_ai.py .
+CMD ["python", "runpod_ai.py"]
