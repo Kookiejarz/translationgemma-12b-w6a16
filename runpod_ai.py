@@ -3,7 +3,7 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 # 对应你在 RunPod Serverless 挂载卷时填写的路径
-MODEL_DIR = "/runpod-volume/models/translategemma-w6a16"
+MODEL_DIR = "Kennethhhh/translationgemma-12b-w6a16"
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 tokenizer = None
